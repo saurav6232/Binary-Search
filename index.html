@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Binary Search</title>
+</head>
+<body>
+  <div id="container">
+    <h1>Binary Search</h1>
+<label for="arraySize">Enter Size of the Array:</label>
+    <input type="number" id="arraySize" required>
+    <label for="arrayInput">Enter Sorted Array (comma-separated):</label>
+    <input type="text" id="arrayInput" placeholder="e.g., 1, 2, 3, 4, 5" required>
+    
+       <label for="targetValue">Enter Target Value:</label>
+         <input type="number" id="targetValue" required>
+    <button onclick="binarySearch()">Search</button>
+    <div id="output"></div>
+  </div>
+<script>
+
+    function binarySearch() {
+      // Get the target value from the input field
+      const targetValue = parseInt(document.getElementById('targetValue').value);
+
+      // Get the array size and input from the user
+      const arraySize = parseInt(document.getElementById('arraySize').value);
+      const arrayInput = document.getElementById('arrayInput').value;
+      
+      // Validate array size and input
+      if (isNaN(arraySize) || arraySize <= 0) {
+        alert("Please enter a valid array size greater than 0.");
+        return;
+      }
+
+      const array = arrayInput.split(',').map(Number);
+
+      if (array.length !== arraySize) {
+        alert(`Please enter ${arraySize} elements for the array.`);
+        return;
+      }
+
+      let low = 0;
+      let high = array.length - 1;
+      let mid;
+      let found = false;
+
+      while (low <= high) {
+        mid = Math.floor((low + high) / 2);
+
+        if (array[mid] === targetValue) {
+          found = true;
+          break;
+        } else if (array[mid] < targetValue) {
+          low = mid + 1;
+        } else {
+          high = mid - 1;
+        }
+      }
+
+      // Display the result on the page
+      const outputElement = document.getElementById('output');
+      outputElement.innerHTML = found
+        ? `<p>Target value ${targetValue} found at index ${mid}.</p>`
+        : `<p>Target value ${targetValue} not found in the array.</p>`;
+    }
+  
+    
+</script>
+    </body>
+</html>
+
+  
